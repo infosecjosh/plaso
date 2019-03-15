@@ -2,6 +2,7 @@
 """Imports for the SQLite database parser."""
 
 from plaso.parsers.sqlite_plugins import android_calls
+from plaso.parsers.sqlite_plugins import android_gmail
 from plaso.parsers.sqlite_plugins import android_sms
 from plaso.parsers.sqlite_plugins import android_webview
 from plaso.parsers.sqlite_plugins import android_webviewcache
