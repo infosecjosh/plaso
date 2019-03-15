@@ -10,6 +10,7 @@ from plaso.containers import time_events
 from plaso.lib import definitions
 from plaso.parsers import sqlite
 from plaso.parsers.sqlite_plugins import interface
+from plaso.parsers import logger
 
 class ISmartAlarmAndroidIpuData(events.EventData):
   """ISmartAlarm on Android IPU data.
@@ -89,7 +90,7 @@ class ISmartAlarmAndroidPlugin(interface.SQLitePlugin):
       ('SELECT id, date, action FROM tb_userdairy', 'ParseUserDairyRow')
     ]
 
-  REQUIRED_TABLES = frozenset(['tb_ipudairy', 'tb_sensordairy', 'tb_userdairy'])
+  REQUIRED_TABLES = frozenset(['TB_IPUDairy', 'TB_SensorDairy', 'TB_userDairy'])
 
   SCHEMAS = [{
       'TB_CameraDairy': (
@@ -237,6 +238,7 @@ class ISmartAlarmAndroidPlugin(interface.SQLitePlugin):
     timestamp = self._GetRowValue(query_hash, row, 'date')
     if timestamp:
       date_time = dfdatetime_java_time.JavaTime(timestamp=timestamp)
+      logger.debug('IpuEvent: {0}'.format(date_time.CopyToDateTimeStringISO8601()))
       event = time_events.DateTimeValuesEvent(
           date_time, definitions.TIME_DESCRIPTION_CREATION)
       parser_mediator.ProduceEventWithEventData(event, event_data)
@@ -262,6 +264,7 @@ class ISmartAlarmAndroidPlugin(interface.SQLitePlugin):
     timestamp = self._GetRowValue(query_hash, row, 'date')
     if timestamp:
       date_time = dfdatetime_java_time.JavaTime(timestamp=timestamp)
+      logger.debug('SensorEvent: {0}'.format(date_time.CopyToDateTimeStringISO8601()))
       event = time_events.DateTimeValuesEvent(
           date_time, definitions.TIME_DESCRIPTION_CREATION)
       parser_mediator.ProduceEventWithEventData(event, event_data)
@@ -285,10 +288,10 @@ class ISmartAlarmAndroidPlugin(interface.SQLitePlugin):
     timestamp = self._GetRowValue(query_hash, row, 'date')
     if timestamp:
       date_time = dfdatetime_java_time.JavaTime(timestamp=timestamp)
+      logger.debug('UserEvent: {0}'.format(date_time.CopyToDateTimeStringISO8601()))
       event = time_events.DateTimeValuesEvent(
           date_time, definitions.TIME_DESCRIPTION_CREATION)
       parser_mediator.ProduceEventWithEventData(event, event_data)
-
 
 
 sqlite.SQLiteParser.RegisterPlugin(ISmartAlarmAndroidPlugin)
