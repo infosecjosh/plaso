@@ -37,6 +37,7 @@ from plaso.formatters import gdrive_synclog
 from plaso.formatters import hangouts_messages
 from plaso.formatters import iis
 from plaso.formatters import imessage
+from plaso.formatters import ismartalarm_android
 from plaso.formatters import ipod
 from plaso.formatters import java_idx
 from plaso.formatters import kik_ios

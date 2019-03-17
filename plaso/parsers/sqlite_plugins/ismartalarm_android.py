@@ -23,7 +23,7 @@ class ISmartAlarmAndroidIpuData(events.EventData):
     profile_name (str): human-readable profile name.
   """
 
-  DATA_TYPE = 'ismartalarm:android:sensorevent'
+  DATA_TYPE = 'ismartalarm:android:ipuevent'
 
   def __init__(self):
     """Initializes event data."""
