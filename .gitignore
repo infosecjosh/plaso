@@ -45,3 +45,5 @@ config/vagrant/*.log
 
 # virtualenv files
 plasoenv/
+penv/
+**/.vscode

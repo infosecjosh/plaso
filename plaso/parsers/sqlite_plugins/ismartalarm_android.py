@@ -237,7 +237,7 @@ class ISmartAlarmAndroidPlugin(interface.SQLitePlugin):
 
     timestamp = self._GetRowValue(query_hash, row, 'date')
     if timestamp:
-      date_time = dfdatetime_java_time.JavaTime(timestamp=timestamp)
+      date_time = dfdatetime_java_time.JavaTime(timestamp=self.FixTimestamp(timestamp))
       logger.debug('IpuEvent: {0}'.format(date_time.CopyToDateTimeStringISO8601()))
       event = time_events.DateTimeValuesEvent(
           date_time, definitions.TIME_DESCRIPTION_CREATION)
@@ -263,7 +263,7 @@ class ISmartAlarmAndroidPlugin(interface.SQLitePlugin):
 
     timestamp = self._GetRowValue(query_hash, row, 'date')
     if timestamp:
-      date_time = dfdatetime_java_time.JavaTime(timestamp=timestamp)
+      date_time = dfdatetime_java_time.JavaTime(timestamp=self.FixTimestamp(timestamp))
       logger.debug('SensorEvent: {0}'.format(date_time.CopyToDateTimeStringISO8601()))
       event = time_events.DateTimeValuesEvent(
           date_time, definitions.TIME_DESCRIPTION_CREATION)
@@ -287,11 +287,24 @@ class ISmartAlarmAndroidPlugin(interface.SQLitePlugin):
 
     timestamp = self._GetRowValue(query_hash, row, 'date')
     if timestamp:
-      date_time = dfdatetime_java_time.JavaTime(timestamp=timestamp)
+      date_time = dfdatetime_java_time.JavaTime(timestamp=self.FixTimestamp(timestamp))
       logger.debug('UserEvent: {0}'.format(date_time.CopyToDateTimeStringISO8601()))
       event = time_events.DateTimeValuesEvent(
           date_time, definitions.TIME_DESCRIPTION_CREATION)
       parser_mediator.ProduceEventWithEventData(event, event_data)
+
+  def FixTimestamp(self, timestamp):
+    """Adjusts for second-resolution timestamps
+
+    iSmartAlarm is inconsistent in how it stores timestamps, even within a single table.
+    Args:
+      timestamp (int): a unix epoch timestamp in seconds or milliseconds
+    Returns:
+       (int): a unix expoch timestamp in milliseconds
+    """
+    if timestamp < 9999999999 and timestamp != 0:
+      timestamp = timestamp * 1000
+    return timestamp
 
 
 sqlite.SQLiteParser.RegisterPlugin(ISmartAlarmAndroidPlugin)
