@@ -4,7 +4,7 @@
 PLASOSETUP=/home/forensics/working/plaso/setup.py
 LOG2TIMELINE=/usr/local/bin/log2timeline.py
 PSORT=/usr/local/bin/psort.py
-TESTDB=/home/forensics/google_db/mailstore.jpinkman2018@gmail.com.db
+TESTDB=./test_data/mailstore.jpinkman2018@gmail.com.db
 PLASOFILE=/home/forensics/testplaso.plaso
 TESTJSON=/home/forensics/plaso.json
 CSV=/home/forensics/plaso.csv

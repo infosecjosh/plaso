@@ -43,6 +43,7 @@ class GmailMessageFormatter(interface.ConditionalEventFormatter):
     Raises:
       WrongFormatter: if the event object cannot be formatted by the formatter.
     """
+    print "test"
     if self.DATA_TYPE != event.data_type:
       print "wrong formatter"
       raise errors.WrongFormatter(
