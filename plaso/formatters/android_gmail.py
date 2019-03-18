@@ -7,11 +7,9 @@ from plaso.formatters import interface
 from plaso.formatters import manager
 from plaso.lib import errors
 
-
-class GmailMessagesFormatter(interface.ConditionalEventFormatter):
+class GmailMessageFormatter(interface.ConditionalEventFormatter):
   """Formatter for an Gmail message event."""
-
-  DATA_TYPE = 'android:messaging:gmail'
+  DATA_TYPE = 'gmail:messaging:gmail'
 
   FORMAT_STRING_PIECES = [
       'From: {fromAddress}',
@@ -21,11 +19,38 @@ class GmailMessagesFormatter(interface.ConditionalEventFormatter):
       'ReplyToAddress: {replyToAddresses}',
       'Subject: {subject}',
       'Snippet: {snippet}',
-      'Body: {body}',]
+      'Body: {body}']
 
   FORMAT_STRING_SHORT_PIECES = ['{body}']
 
   SOURCE_LONG = 'Android Google Gmail Message'
   SOURCE_SHORT = 'GMAIL'
 
-manager.FormattersManager.RegisterFormatter(GmailMessagesFormatter)
+  def GetMessages(self, unused_formatter_mediator, event):
+    """Determines the formatted message strings for an event object.
+
+    If any event values have a matching formatting function in VALUE_FORMATTERS,
+    they are run through that function; then the dictionary is passed to the
+    superclass's formatting method.
+
+    Args:
+      unused_formatter_mediator (FormatterMediator): not used.
+      event (EventObject): event.
+
+    Returns:
+      tuple(str, str): formatted message string and short message string.
+
+    Raises:
+      WrongFormatter: if the event object cannot be formatted by the formatter.
+    """
+    if self.DATA_TYPE != event.data_type:
+      print "wrong formatter"
+      raise errors.WrongFormatter(
+          'Unsupported data type: {0:s}.'.format(event.data_type))
+
+    event_values = event.CopyToDict()
+
+    return self._ConditionalFormatMessages(event_values)
+
+
+manager.FormattersManager.RegisterFormatter(GmailMessageFormatter)
