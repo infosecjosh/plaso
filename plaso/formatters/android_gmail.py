@@ -49,7 +49,6 @@ class GmailMessageFormatter(interface.ConditionalEventFormatter):
           'Unsupported data type: {0:s}.'.format(event.data_type))
 
     event_values = event.CopyToDict()
-    pprint.pprint(event_values)
 
     return self._ConditionalFormatMessages(event_values)
 

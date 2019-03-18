@@ -1,25 +1,27 @@
 
-.PHONY: build test-plugin test-formatter test
+.PHONY: build test-plugin test-formatter test all
 
 PLASOSETUP=/home/forensics/working/plaso/setup.py
 LOG2TIMELINE=/usr/local/bin/log2timeline.py
 PSORT=/usr/local/bin/psort.py
-TESTDB=./test_data/mailstore.jpinkman2018@gmail.com.db
+TESTDB=/home/forensics/google_db/mailstore.jpinkman2018@gmail.com.db
+TESTDB2=./test_data/mailstore.jpinkman2018@gmail.com.db
 PLASOFILE=/home/forensics/testplaso.plaso
 TESTJSON=/home/forensics/plaso.json
 CSV=/home/forensics/plaso.csv
 
-build: 
+build:
 	sudo $(PLASOSETUP) install
 
-test-plugin: 
+test-plugin:
 	if [ -e $(PLASOFILE) ]; then rm $(PLASOFILE); fi
 	$(LOG2TIMELINE) --parsers sqlite $(PLASOFILE) $(TESTDB)
 
-test-formatter: 
+test-formatter:
 	if [ -e $(TESTJSON) ]; then rm $(TESTJSON); fi
 	if [ -e $(CSV) ]; then rm $(CSV); fi
-	$(PSORT) -d -o l2tcsv -w $(CSV) $(PLASOFILE) 
-	
+	$(PSORT) -d -o l2tcsv -w $(CSV) $(PLASOFILE)
+
 test: test-plugin test-formatter
 
+all: build test-plugin test-formatter
