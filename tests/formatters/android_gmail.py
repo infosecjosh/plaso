@@ -7,7 +7,7 @@ from __future__ import unicode_literals
 
 import unittest
 
-from plaso.formatters import android_sms
+from plaso.formatters import android_gmail
 
 from tests.formatters import test_lib
 
@@ -17,15 +17,15 @@ class AndroidGmailFormatterTest(test_lib.EventFormatterTestCase):
 
   def testInitialization(self):
     """Tests the initialization."""
-    event_formatter = android_sms.GmailMessagesFormatter()
+    event_formatter = android_gmail.GmailMessageFormatter()
     self.assertIsNotNone(event_formatter)
 
   def testGetFormatStringAttributeNames(self):
     """Tests the GetFormatStringAttributeNames function."""
-    event_formatter = android_sms.GmailMessagesFormatter()
+    event_formatter = android_gmail.GmailMessageFormatter()
 
     expected_attribute_names = [
-        'fromAddress', 'to', 'cc', 'bcc', 'ReplyToAddress', 'Subject', 'Snippet', 'Body']
+        'fromAddress', 'to', 'cc', 'bcc', 'replyToAddresses', 'subject', 'snippet', 'body']
 
     self._TestGetFormatStringAttributeNames(
         event_formatter, expected_attribute_names)

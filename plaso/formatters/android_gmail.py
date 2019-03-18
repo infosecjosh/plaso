@@ -17,7 +17,7 @@ class GmailMessageFormatter(interface.ConditionalEventFormatter):
       'To: {to}',
       'Cc: {cc}',
       'Bcc: {bcc}',
-      'ReplyToAddress: {replyToAddresses}',
+      'ReplyToAddresses: {replyToAddresses}',
       'Subject: {subject}',
       'Snippet: {snippet}',
       'Body: {body}']
