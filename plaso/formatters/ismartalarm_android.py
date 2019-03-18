@@ -8,7 +8,7 @@ from plaso.formatters import manager
 from plaso.lib import errors
 
 
-class ISmartAlarmAndroidIPUFormatter(interface.ConditionalEventFormatter):
+class ISmartAlarmAndroidIpuFormatter(interface.ConditionalEventFormatter):
   """iSmartAlarm for android IPU event formatter."""
 
   DATA_TYPE = 'ismartalarm:android:ipuevent'
@@ -100,5 +100,5 @@ class ISmartAlarmAndroidUserFormatter(interface.ConditionalEventFormatter):
 
 
 manager.FormattersManager.RegisterFormatters([
-    ISmartAlarmAndroidIPUFormatter, ISmartAlarmAndroidSensorFormatter,
+    ISmartAlarmAndroidIpuFormatter, ISmartAlarmAndroidSensorFormatter,
     ISmartAlarmAndroidUserFormatter])
