@@ -61,7 +61,6 @@ class ISmartAlarmAndroidTest(test_lib.SQLitePluginTestCase):
     self._TestGetMessageStrings(event, expected_message, expected_short_message)
 
     # Test sensor event data with no name
-    # 05/14/2018,09:32:45,UTC,...B,iSmartAlarm Android,iSmartAlarm Android Sensor Event,Creation Time,-,-,Sensor ID: 0006B4E5 Action: 6 Operator ID: 004D3209D9E4,Sensor ID: 0006B4E5 Action: 6 Operator ID: 004D3209D9E4,2,OS:/mnt/userdata/data/iSA.common/databases/iSmartAlarm.DB,589427,-,sqlite/ismartalarm_android,schema_match: True; sha256_hash: dbca18d95bd9e34c122fe957249d2593c22dfc1ab771c9cf95fcc5dfb9696f2e
     event = events[0]
     self.CheckTimestamp(event.timestamp, '2018-05-14 09:32:45.792000')
     self.assertEqual(
@@ -72,8 +71,11 @@ class ISmartAlarmAndroidTest(test_lib.SQLitePluginTestCase):
     self.assertEqual(event.operator, '004D3209D9E4')
     self.assertEqual(event.name, '')
 
+    expected_message = ('Sensor ID: 0006B4E5 Action: 6 Operator ID: 004D3209D9E4')
+    expected_short_message = ('Sensor ID: 0006B4E5 Action: 6 Operator ID: 004D3209D9E4')
+    self._TestGetMessageStrings(event, expected_message, expected_short_message)
+
     # Test sensor event data with name
-    # 05/15/2018,13:03:47,UTC,...B,iSmartAlarm Android,iSmartAlarm Android Sensor Event,Creation Time,-,-,Sensor ID: 004D3209D9E4 Action: 2 Operator ID: 700911,Sensor ID: 004D3209D9E4 Action: 2     Operator ID: 700911 Operator Name: TheBoss,2,OS:/mnt/userdata/data/iSA.common/databases/iSmartAlarm.DB,589427,-,sqlite/ismartalarm_android,schema_match: True; sha256_hash: dbca18d95bd9e3    4c122fe957249d2593c22dfc1ab771c9cf95fcc5dfb9696f2e
     event = events[18]
     self.CheckTimestamp(event.timestamp, '2018-05-15 13:03:47.000000')
     self.assertEqual(
@@ -89,7 +91,6 @@ class ISmartAlarmAndroidTest(test_lib.SQLitePluginTestCase):
     self._TestGetMessageStrings(event, expected_message, expected_short_message)
 
     # Test user event
-    # 05/15/2018,13:03:47,UTC,...B,iSmartAlarm Android,iSmartAlarm Android User Event,Creation Time,-,-,Operator ID: 700911 Action: 4,Operator ID: 700911 Action: 4,2,OS:/mnt/userdata/data/iSA.common/databases/iSmartAlarm.DB,589427,-,sqlite/ismartalarm_android,schema_match: True; sha256_hash: dbca18d95bd9e34c122fe957249d2593c22dfc1ab771c9cf95fcc5dfb9696f2e
     event = events[19]
     self.CheckTimestamp(event.timestamp, '2018-05-15 13:03:47.000000')
     self.assertEqual(
