@@ -9,7 +9,7 @@ from plaso.lib import errors
 
 class GmailMessageFormatter(interface.ConditionalEventFormatter):
   """Formatter for an Gmail message event."""
-  DATA_TYPE = 'gmail:messaging:gmail'
+  DATA_TYPE = 'android:messaging:gmail'
 
   FORMAT_STRING_PIECES = [
       'From: {fromAddress}',

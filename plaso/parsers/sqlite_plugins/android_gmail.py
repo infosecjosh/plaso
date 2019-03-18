@@ -285,8 +285,6 @@ class GmailMessagePlugin(interface.SQLitePlugin):
     event_data.bcc = self._GetRowValue(query_hash, row, 'bccAddresses')
     event_data.replyToAddresses = self._GetRowValue(query_hash, row, 'replyToAddresses')
     event_data.subject = self._GetRowValue(query_hash, row, 'subject')
-    event_data.snippet = self._GetRowValue(query_hash, row, 'snippet')
-    event_data.body = zlib.decompress(self._GetRowValue(query_hash, row, 'bodyCompressed')).decode("utf-8")
     event_data.query = query
 
     timestamp = self._GetRowValue(query_hash, row, 'dateSentMs')
