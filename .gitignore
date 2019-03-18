@@ -42,8 +42,3 @@ tests-coverage.txt
 # Vagrant files
 config/vagrant/.vagrant/
 config/vagrant/*.log
-
-# virtualenv files
-plasoenv/
-penv/
-**/.vscode
