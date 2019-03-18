@@ -3,6 +3,7 @@
 
 from __future__ import unicode_literals
 
+import pprint
 from plaso.formatters import interface
 from plaso.formatters import manager
 from plaso.lib import errors
@@ -43,13 +44,12 @@ class GmailMessageFormatter(interface.ConditionalEventFormatter):
     Raises:
       WrongFormatter: if the event object cannot be formatted by the formatter.
     """
-    print "test"
     if self.DATA_TYPE != event.data_type:
-      print "wrong formatter"
       raise errors.WrongFormatter(
           'Unsupported data type: {0:s}.'.format(event.data_type))
 
     event_values = event.CopyToDict()
+    pprint.pprint(event_values)
 
     return self._ConditionalFormatMessages(event_values)
 
