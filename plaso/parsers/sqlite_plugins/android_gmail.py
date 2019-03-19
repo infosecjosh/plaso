@@ -279,31 +279,19 @@ class GmailMessagePlugin(interface.SQLitePlugin):
 
     event_data = GmailMessagesData()
 
-    event_data.fromAddress = self._GetRowValue(query_hash, row, 'fromAddress').encode("utf-8")
-    event_data.to = self._GetRowValue(query_hash, row, 'toAddresses').encode("utf-8")
-    event_data.cc = self._GetRowValue(query_hash, row, 'ccAddresses').encode("utf-8")
-    event_data.bcc = self._GetRowValue(query_hash, row, 'bccAddresses').encode("utf-8")
-    event_data.replyToAddresses = self._GetRowValue(query_hash, row, 'replyToAddresses').encode("utf-8")
-    event_data.subject = self._GetRowValue(query_hash, row, 'subject').encode("utf-8")
-    event_data.snippet = self._GetRowValue(query_hash, row, 'snippet').encode("utf-8")
+    event_data.fromAddress = self._GetRowValue(query_hash, row, 'fromAddress')
+    event_data.to = self._GetRowValue(query_hash, row, 'toAddresses')
+    event_data.cc = self._GetRowValue(query_hash, row, 'ccAddresses')
+    event_data.bcc = self._GetRowValue(query_hash, row, 'bccAddresses')
+    event_data.replyToAddresses = self._GetRowValue(query_hash, row, 'replyToAddresses')
+    event_data.subject = self._GetRowValue(query_hash, row, 'subject')
+    event_data.snippet = self._GetRowValue(query_hash, row, 'snippet')
     event_data.body = zlib.decompress(self._GetRowValue(query_hash, row, 'bodyCompressed')).decode("utf-8")
     event_data.query = query
 
     timestamp = self._GetRowValue(query_hash, row, 'dateSentMs')
     date_time = dfdatetime_posix_time.PosixTimeInMilliseconds(
         timestamp=timestamp)
-    print timestamp
-    print date_time.CopyToDateTimeString()
-
-    print event_data.fromAddress
-    print event_data.to
-    print event_data.cc
-    print event_data.bcc
-    print event_data.replyToAddresses
-    print event_data.subject
-    print event_data.snippet
-    print event_data.body
-
 
     event = time_events.DateTimeValuesEvent(
         date_time, definitions.TIME_DESCRIPTION_CREATION)
